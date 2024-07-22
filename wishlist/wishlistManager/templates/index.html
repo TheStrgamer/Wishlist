@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Wishlist</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{% static "styles/styles.css" %}'>
+    <script src='{% static "js/script.js" %}'></script>
+</head>
+<body>
+    <div class="topbar">
+        <a href="{% url 'admin:index' %}">Admin</a>
+    </div>
+    <h1>Wishlist</h1>
+    <p>No content or logic has been added yet</p>
+    <p>But you can start by creating a new wishlist</p>
+    {% for wishlist in wishlists %}
+        <div class="wishlist">
+            <h3>{{ wishlist.name }}</h3>
+            {% for item in wishlist.items.all %}
+                <div class="wishlist-item">
+                    <p>{{ item.name }}</p>
+                    {% if item.image%}
+                    <img class="item-image"  src="{{ item.image.url }}" alt="{{ item.name }}"><br>
+                    {% endif %}
+                    {% if item.example_link %}
+                    <a href="{{ item.example_link }}">{{ item.example_link }}</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+    {% endfor %}
+    
+</body>
+</html>

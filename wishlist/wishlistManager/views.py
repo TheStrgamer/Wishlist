@@ -1,8 +1,13 @@
 from django.shortcuts import render
 
-from django.http import HttpResponse
+from .models import Wishlist, Category, Item, WishlistGroup, GroupInvite
+
 
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Jormungandr rise. Bring your wrath, ragnarok comes")
+    wishlists = Wishlist.objects.all()
+    items = Item.objects.all()
+    context = {'wishlists': wishlists}
+    return render(request, 'index.html', context)
+
