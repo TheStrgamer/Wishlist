@@ -27,7 +27,7 @@
                 {% endif %}
                 <a href="{% url 'wishlist_list' %}">View</a>
 
-                <p>Created by: {{ wishlist.owner }}</p>
+                <p>Created by: {{ wishlist.user }}</p>
 
             </div>
         {% endfor %}
