@@ -18,10 +18,18 @@
 </head>
 <body>
     <div class="topbar">
-        <a href="{% url 'index' %}">Home</a>
-        <a href="{% url 'wishlist_list' %}">Wishlists</a>
-        <a href="{% url 'logout' %}">Logout</a>
-        <a href="{% url 'admin:index' %}">Admin</a>    </div>
+        <div class="topbar-left"></div>
+
+        <div class="topbar-center">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'wishlist_list' %}">Wishlists</a>
+        </div>
+        <div class="topbar-spacer"></div>
+        <div class="topbar-right">
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'admin:index' %}">Admin</a>
+        </div>
+    </div>
     <div class = "centered_box">
         <h2>Login</h2>
 
