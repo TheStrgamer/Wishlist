@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{% static "styles/styles.css" %}'>
+    <script src='{% static "js/script.js" %}'></script>
+
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'wishlist_list' %}">Wishlists</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'admin:index' %}">Admin</a>    </div>
+    <div class = "centered_box">
+        <h2>Login</h2>
+
+        <form method="POST" action = "{% url 'login' %}">
+            {% csrf_token %}
+
+            <input type="hidden" name="next" value="{{next}}">
+            <div class="form_group">
+                <label for = "username">Username</label>
+                <input type="text" name="username" id="username" requierd>
+            </div>
+            <div class="form_group">
+                <label for = "password">Password</label>
+                <input type="text" name="password" id="password" requierd>
+            </div>
+            
+            <button type="submit">Login</button>
+        </form>
+
+        {% if error %}
+        <p class="error">{{error}}</p>
+        {% endif %}
+        <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>   
+
+
+    </div>
+    
+</body>
+</html>

@@ -24,6 +24,25 @@ class Wishlist(models.Model):
     def __str__(self):
         return self.name
     
+    def user_has_permission(self, user):
+
+        if self.privacy_level == 1:
+            if user in self.users_with_permission.all():
+                return True
+            for group in self.groups_with_permission.all():
+                if user in group.members.all():
+                    return True
+        elif self.privacy_level == 2:
+            if user == self.user:
+                return True
+        return False
+    
+    def user_can_view(self, user):
+        if self.privacy_level == 0:
+            return True
+        else:
+            return self.user_has_permission(user)
+    
 class Category(models.Model):
     name = models.CharField(max_length=100)
     default = models.BooleanField()

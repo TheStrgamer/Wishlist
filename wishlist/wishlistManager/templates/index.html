@@ -12,11 +12,29 @@
 </head>
 <body>
     <div class="topbar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'wishlist_list' %}">Wishlists</a>
+        <a href="{% url 'logout' %}">Logout</a>
         <a href="{% url 'admin:index' %}">Admin</a>
     </div>
-    <h1>Wishlist</h1>
-    <p>No content or logic has been added yet</p>
-    <p>But you can start by creating a new wishlist</p>
+    <div class = "centered_box">
+        <h1>Wishlist</h1>
+        <p> Welcome, {{ request.user.username }}!</p>
+        <a href="{% url 'protected' %}">See secret '_'</a>
+        <form action="{% url 'logout' %}" method = "post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+        {% if False %}
+        <form action="{% url 'create_wishlist' %}" method = "get">
+            <button type="submit">Click to enter form</button>
+        </form>
+        {% endif %}
+
+    </div>
+
+    {% if False %}
     {% for wishlist in wishlists %}
         <div class="wishlist">
             <h3>{{ wishlist.name }}</h3>
@@ -32,6 +50,7 @@
                 </div>
             {% endfor %}
     {% endfor %}
+    {% endif %}
     
 </body>
 </html>

@@ -17,10 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from wishlistManager import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wishlistManager.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    path("accounts/login/", views.login_view, name="login"),
+    path("accounts/register/", views.register_user_view, name="register"),
+    path("accounts/logout/", views.logout_view, name="logout"),
+    
 
 ]
