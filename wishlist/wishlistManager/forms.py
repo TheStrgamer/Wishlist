@@ -6,7 +6,6 @@ from .models import WishlistGroup, Wishlist
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     passwordConfirm = forms.CharField(widget=forms.PasswordInput, label='Confirm Password')
-    #TODO write more
 
     class Meta:
         model = User
@@ -25,9 +24,9 @@ class UserRegisterForm(forms.ModelForm):
 class WishlistForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, label='Wishlist Name')
     description = forms.CharField(required=False, label='Description', widget=forms.Textarea)
-    privacy_level = forms.MultipleChoiceField(choices=[(0, 'Public'), (1, 'Selective'), (2, 'Private')], required=True, label='Privacy Level')
-    groups_with_permission = forms.ModelMultipleChoiceField(queryset=WishlistGroup.objects.all(), required=False, label = 'Share with Groups')
-    users_with_permission = forms.ModelMultipleChoiceField(queryset=User.objects.all(), required=False, label = 'Share with Users')
+    privacy_level = forms.MultipleChoiceField(choices=[(0, 'Public'), (1, 'Selective'), (2, 'Private')], required=True, label='Privacy Level', widget=forms.RadioSelect)
+    groups_with_permission = forms.ModelMultipleChoiceField(queryset=WishlistGroup.objects.all(), required=False, label = 'Share with Groups', widget=forms.CheckboxSelectMultiple(attrs={'class': 'scrollable-checkboxes'}))
+    users_with_permission = forms.ModelMultipleChoiceField(queryset=User.objects.all(), required=False, label = 'Share with Users', widget=forms.CheckboxSelectMultiple(attrs={'class': 'scrollable-checkboxes'}))
 
     def save(self):
         print('creating' + self.cleaned_data['name'])

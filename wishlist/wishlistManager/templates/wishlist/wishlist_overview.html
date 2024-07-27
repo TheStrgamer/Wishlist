@@ -12,6 +12,11 @@
 </head>
 <body>
     {% block content %}
+        <h2>Wishlists shared with you</h2>
+        <br>
+        {% if wishlist_list|length == 0 %}
+        <p>You have not been shared any wishlists</p>
+        {% endif %}
         {% for wishlist in wishlist_list %}
             <div class= "wishlist">
                 <h2>{{ wishlist.name }}</h2>

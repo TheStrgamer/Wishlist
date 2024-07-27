@@ -12,6 +12,13 @@
 </head>
 <body>
     {% block content %}
+        <h2>Your Wishlists</h2>
+        <form action="{% url 'create_wishlist' %}" method = "get">
+            <button type="submit">Create wishlist</button>
+        </form> 
+        {% if wishlist_list|length == 0 %}
+        <p>You have not made any wishlists</p>
+        {% endif %}
         {% for wishlist in wishlist_list %}
             <div class= "wishlist">
                 <h2>{{ wishlist.name }}</h2>

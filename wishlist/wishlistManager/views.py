@@ -79,6 +79,14 @@ def your_wishlists_view(request):
     context = {'wishlist_list': wishlists}
     return render(request, 'wishlist/your_wishlists.html', context)
 
+@login_required
+def groups_view(request):
+    groups = WishlistGroup.objects.all()
+    your_groups = [group for group in groups if request.user in group.members.all() and group.owner != request.user]
+    owned_groups = [group for group in groups if group.owner == request.user]
+    context = {'group_list': your_groups, 'owned_groups': owned_groups}
+    return render(request, 'groups.html', context)
+
 
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'

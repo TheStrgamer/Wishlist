@@ -11,11 +11,22 @@
 </head>
 <body>
     {% block content %}
-
+        <h2>Create a new wishlist</h2>
+    
 
         <form method = "POST"> 
             {% csrf_token %}
-            {{form.as_p}}
+            {% comment %} {{form.as_p}} {% endcomment %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{field.errors}}
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+                <br>
+            {% endfor %}
+
+            <br>
             <button type="submit" class="btn">Submit </button>
         </form>
     {% endblock %}

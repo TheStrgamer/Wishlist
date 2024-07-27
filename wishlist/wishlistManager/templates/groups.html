@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>Wishlist</title>
+    
+    {% endblock %}
+</head>
+<body>
+    
+        {% block content %}
+        <h1>Owned groups</h1>
+        <br>
+        {% if owned_groups|length == 0 %}
+        <p>You do not own any groups</p>
+        {% endif %}
+        
+        {% for group in owned_groups %}
+
+
+            <div class= "group">
+                <h2>{{ group.name }}</h2>
+                {% if group.description %}
+                    <p>{{ group.description }}</p>
+                {% endif %}
+                <a >View</a>
+
+            </div>
+            <br>
+        {% endfor %}
+
+        <h1>Groups you are a member of</h1>
+        <br>
+        {% if group_list|length == 0 %}
+        <p>You are not a member of any groups</p>
+        {% endif %}
+        {% for group in group_list %}
+            <div class= "group">
+                <h2>{{ group.name }}</h2>
+                {% if group.description %}
+                    <p>{{ group.description }}</p>
+                {% endif %}
+                <a >View</a>
+
+            </div>
+            <br>
+        {% endfor %}
+
+
+        {% endblock %}
+
+
+    
+</body>
+</html>

@@ -2,10 +2,15 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
-
-
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin:0;
+    padding: 20px;
+    overflow: hidden;
+}
 
 .topbar {
     background-color: #333;
@@ -47,12 +52,21 @@
 
 }
 
-
-
 .topbar a {
     color: white;
     text-decoration: none;
     font-size: 20px;
+}
+
+.centered_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    margin-top: 30px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    max-height: calc(100vh - 50px);
 }
 
 .wishlist {
@@ -78,14 +92,7 @@
 }
 
 
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    margin:0;
-    padding: 20px;
-    overflow: hidden;
-}
+
 
 h1{
     color: #4a90e2;
@@ -111,15 +118,7 @@ button:hover{
     background-color: #357ab8;
 }
 
-/* Home Page */
-.centered_box{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
+
 
 .btn{
     font-size: 16px;
@@ -149,7 +148,7 @@ label{
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"], textarea {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
@@ -170,4 +169,20 @@ input[type="password"] {
 .success-message p{
     margin: 20px 0;
 }
+
+.scrollable-checkboxes {
+    max-height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.scrollable-checkboxes ul {
+    padding-left: 0; 
+}
+
+.scrollable-checkboxes li {
+    list-style-type: none;
+}
+
 
