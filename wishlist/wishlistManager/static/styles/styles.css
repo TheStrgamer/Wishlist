@@ -149,14 +149,10 @@ label{
 }
 
 input[type="text"],
-input[type="email"],
-textarea{
+input[type="password"] {
     width: 100%;
     padding: 8px;
-    margin: 10px 0 20px;
-    border-radius: 5px;
     box-sizing: border-box;
-    border: 1px solid #ddd;
 }
 
 /* Success Page Styling */

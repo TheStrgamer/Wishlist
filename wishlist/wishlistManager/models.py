@@ -24,7 +24,10 @@ class Wishlist(models.Model):
     def __str__(self):
         return self.name
     
-    def user_has_permission(self, user):
+    def user_is_creator(self, user):
+        return self.user == user
+    
+    def shared_with_user(self, user):
 
         if self.privacy_level == 1:
             if user in self.users_with_permission.all():
@@ -32,9 +35,6 @@ class Wishlist(models.Model):
             for group in self.groups_with_permission.all():
                 if user in group.members.all():
                     return True
-        elif self.privacy_level == 2:
-            if user == self.user:
-                return True
         return False
     
     def user_can_view(self, user):

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>Wishlist</title>
+    {% endblock %}  
+
+</head>
+<body>
+    {% block content %}
+        {% for wishlist in wishlist_list %}
+            <div class= "wishlist">
+                <h2>{{ wishlist.name }}</h2>
+                {% if wishlist.description %}
+                    <p>{{ wishlist.description }}</p>
+                {% endif %}
+                <a href="{% url 'wishlist_list' %}">View</a>
+                
+                <a >Delete</a>
+                <a >Edit</a>
+
+                <p>Created by: {{ wishlist.user }}</p>
+
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+    
+</body>
+</html>

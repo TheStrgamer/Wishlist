@@ -25,6 +25,7 @@
         <div class="topbar-center">
             <a href="{% url 'index' %}">Home</a>
             <a href="{% url 'wishlist_list' %}">Wishlists</a>
+            <a href="{% url 'your_wishlists' %}" >Your Wishlists</a>
         </div>
         <div class="topbar-spacer"></div>
         <div class="topbar-right">
@@ -35,7 +36,9 @@
             <a href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</a>
             {% endif %}
 
+            {% if request.user.is_authenticated and request.user.is_staff %}
             <a href="{% url 'admin:index' %}">Admin</a>
+            {% endif %}
         </div>
     </nav>
 

@@ -33,17 +33,3 @@ class WishlistForm(forms.Form):
         print('creating' + self.cleaned_data['name'])
     
 
-class WishlistForm2(forms.ModelForm):
-    class Meta:
-        model = Wishlist
-        fields = ['name', 'description', 'privacy_level', 'groups_with_permission', 'users_with_permission']
-        widgets = {
-            'description': forms.Textarea(),
-        }
-        labels = {
-            'name': 'Wishlist Name',
-            'description': 'Description',
-            'privacy_level': 'Privacy Level',
-            'groups_with_permission': 'Share with Groups',
-            'users_with_permission': 'Share with Users',
-        }

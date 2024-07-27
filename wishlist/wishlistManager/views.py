@@ -11,31 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.views import View
 
-
-
-# Create your views here.
-def index(request):
-    return render(request, 'index.html')
-
-def create_wishlist_view(request):
-    if request.method== "POST":
-        form = WishlistForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-        
-    else: 
-        form = WishlistForm()
-    context = {'form': form}
-    return render(request, 'wishlist/create_wishlist.html', context)
-
-@login_required
-def wishlist_view(request):
-    wishlists = Wishlist.objects.all()
-    wishlists_with_permission = [wishlist for wishlist in wishlists if wishlist.user_can_view(request.user)]
-    context = {'wishlist_list': wishlists_with_permission}
-    return render(request, 'wishlist/wishlist_overview.html', context)
-
 def register_user_view(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
@@ -73,6 +48,37 @@ def logout_view(request):
     else:
         return redirect('index')
     
+
+
+# Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
+def create_wishlist_view(request):
+    if request.method== "POST":
+        form = WishlistForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        
+    else: 
+        form = WishlistForm()
+    context = {'form': form}
+    return render(request, 'wishlist/create_wishlist.html', context)
+
+@login_required
+def wishlist_view(request):
+    wishlists = Wishlist.objects.all()
+    wishlists_with_permission = [wishlist for wishlist in wishlists if wishlist.shared_with_user(request.user)]
+    context = {'wishlist_list': wishlists_with_permission}
+    return render(request, 'wishlist/wishlist_overview.html', context)
+
+@login_required
+def your_wishlists_view(request):
+    wishlists = Wishlist.objects.filter(user=request.user)
+    context = {'wishlist_list': wishlists}
+    return render(request, 'wishlist/your_wishlists.html', context)
+
 
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'
