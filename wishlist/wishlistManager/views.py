@@ -54,15 +54,17 @@ def logout_view(request):
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def create_wishlist_view(request):
     if request.method== "POST":
-        form = WishlistForm(request.POST)
+        form = WishlistForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('index')
-        
+            return redirect('index') 
+        else:
+            print(form.errors)       
     else: 
-        form = WishlistForm()
+        form = WishlistForm(user=request.user)
     context = {'form': form}
     return render(request, 'wishlist/create_wishlist.html', context)
 
