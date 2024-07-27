@@ -1,31 +1,17 @@
+{% extends "base.html" %}
+
 {% load static %}
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    {% block title %}
     <title>Wishlist</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='{% static "styles/styles.css" %}'>
-    <script src='{% static "js/script.js" %}'></script>
+    {% endblock %}  
+
 </head>
 <body>
-    <div class="topbar">
-        <div class="topbar-left"></div>
-
-        <div class="topbar-center">
-            <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'wishlist_list' %}">Wishlists</a>
-        </div>
-        <div class="topbar-spacer"></div>
-        <div class="topbar-right">
-            <a href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'admin:index' %}">Admin</a>
-        </div>
-    </div>
-
-    <div class = "centered_box">
+    {% block content %}
         {% for wishlist in wishlist_list %}
             <div class= "wishlist">
                 <h2>{{ wishlist.name }}</h2>
@@ -38,7 +24,7 @@
 
             </div>
         {% endfor %}
-    </div>
+    {% endblock %}
 
     
 </body>

@@ -3,13 +3,9 @@
 
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Login</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='{% static "styles/styles.css" %}'>
-    <script src='{% static "js/script.js" %}'></script>
-
+    {% block title %}
+    <title>Wishlist</title>
+    {% endblock %}
     <style>
         .error {
             color: red;
@@ -17,27 +13,13 @@
     </style>
 </head>
 <body>
-    <div class="topbar">
-        <div class="topbar-left"></div>
+    {% block content %}
 
-        <div class="topbar-center">
-            <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'wishlist_list' %}">Wishlists</a>
-        </div>
-        <div class="topbar-spacer"></div>
-        <div class="topbar-right">
-            <a href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'admin:index' %}">Admin</a>
-        </div>
-    </div>
-    
-    <div class = "centered_box">
         <h2>Secret</h2>
         <p>Ber er hver að baki nema sér bróður eigi.</p>
         <a href="{% url 'index' %}">Home</a>
 
 
-    </div>
-    
+    {% endblock %}    
 </body>
 </html>

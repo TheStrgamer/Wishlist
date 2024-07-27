@@ -1,0 +1,39 @@
+
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='{% static "styles/styles.css" %}'>
+    <script src='{% static "js/script.js" %}'></script>
+    {% block title %}
+    {% endblock %}
+</head>
+<body>
+
+    <form action="{% url 'logout' %}" method = "post" style="display: none;" id="logout-form">
+        {% csrf_token %}
+    </form>
+
+    <nav class="topbar">
+        <div class="topbar-left"></div>
+
+        <div class="topbar-center">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'wishlist_list' %}">Wishlists</a>
+        </div>
+        <div class="topbar-spacer"></div>
+        <div class="topbar-right">
+            <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+
+            <a href="{% url 'admin:index' %}">Admin</a>
+        </div>
+    </nav>
+
+    <div class="centered_box">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body >
+</html>
