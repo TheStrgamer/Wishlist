@@ -14,7 +14,6 @@ from django.views import View
 
 
 # Create your views here.
-@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -70,7 +69,7 @@ def login_view(request):
 def logout_view(request):
     if request.method == "POST":
         logout(request)
-        return redirect('login')
+        return redirect('index')
     else:
         return redirect('index')
     

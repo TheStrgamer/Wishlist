@@ -14,21 +14,32 @@
     
         {% block content %}
         <h1>Wishlist</h1>
+
+        {% if request.user.is_authenticated %}
+        <br>
         <p> Welcome, {{ request.user.username }}!</p>
         <a href="{% url 'protected' %}">See secret '_'</a>
         <form action="{% url 'logout' %}" method = "post">
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
-
-        {% if False %}
-        <form action="{% url 'create_wishlist' %}" method = "get">
-            <button type="submit">Click to enter form</button>
+        {% else %}
+        <br>
+        <p> Welcom to the wishlist manager app </p>
+        <br>
+        <p> to make a wishlist, or view wishlists shared with you, please log in or register</p>
+        <form action="{% url 'login' %}" method = "get">
+            <button type="submit">Login</button>
         </form>
         {% endif %}
+
+        {% comment %} 
+        <form action="{% url 'create_wishlist' %}" method = "get">
+            <button type="submit">Click to enter form</button>
+        </form> {% endcomment %}
         {% endblock %}
 
-
+{% comment %} 
     {% if False %}
     {% for wishlist in wishlists %}
         <div class="wishlist">
@@ -45,7 +56,7 @@
                 </div>
             {% endfor %}
     {% endfor %}
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     
 </body>
