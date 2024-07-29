@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import WishlistGroup, Wishlist
+from .models import WishlistGroup, Wishlist, Category, Item
 
 
 class UserRegisterForm(forms.ModelForm):
@@ -40,5 +40,25 @@ class WishlistForm(forms.Form):
         wishlist.groups_with_permission.set(self.cleaned_data['groups_with_permission'])
         wishlist.users_with_permission.set(self.cleaned_data['users_with_permission'])
         wishlist.save()
+
+class ItemForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True, label="Item name")
+    description = forms.CharField(required=False, label='Description', widget=forms.Textarea)
+    link = forms.CharField(max_length=100, required=False, label="Example link ")
+    image = forms.ImageField(required=False)
+    category = forms.ModelChoiceField(None, required=False, label = 'Category', widget=forms.CheckboxSelectMultiple(attrs={'class': 'scrollable-checkboxes'}))
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        self.wishlist = kwargs.pop('wishlist')
+        super(ItemForm, self).__init__(*args, **kwargs)
+        self.fields['category'].queryset = Category.objects.filter(pk=self.user.pk)
+
+    def save(self):
+        item = Item.objects.create(name = self.cleaned_data['name'], description = self.cleaned_data['description'], example_link= self.cleaned_data['link'], image=self.cleaned_data['image'], wishlist = self.wishlist)
+        item.category = (self.cleaned_data['category'])
+        item.save()
+
+
     
 

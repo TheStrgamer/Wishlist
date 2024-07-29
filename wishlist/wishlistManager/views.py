@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from .models import Wishlist, Category, Item, WishlistGroup, GroupInvite
 
-from .forms import UserRegisterForm, WishlistForm
+from .forms import UserRegisterForm, WishlistForm, ItemForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -71,6 +72,25 @@ def create_wishlist_view(request):
         form = WishlistForm(user=request.user)
     context = {'form': form}
     return render(request, 'wishlist/create_wishlist.html', context)
+
+# Wishlist related views
+@login_required
+def add_item_view(request, wishlist_id):
+    wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+    #wishlist = Wishlist.objects.filter(id = wishlist_id)
+    if request.method== "POST":
+        form = ItemForm(request.POST, request.FILES, user=request.user, wishlist = wishlist )
+        if form.is_valid():
+            form.save()
+
+            url = reverse('wishlist_detail', args=[wishlist_id])
+            return redirect(url) 
+        else:
+            print(form.errors)       
+    else: 
+        form = ItemForm(user=request.user, wishlist = wishlist)
+    context = {'form': form}
+    return render(request, 'wishlist/add_item.html', context)
 
 @login_required
 def wishlist_view(request):

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>Item</title>
+    {% endblock %}
+
+</head>
+<body>
+    {% block content %}
+        <h2>Add item to wishlist</h2>
+    
+
+        <form method = "POST" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{field.errors}}
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+                <br>
+            {% endfor %}
+
+            <br>
+            <button type="submit" class="btn">Add </button>
+        </form>
+    {% endblock %}
+
+    
+    
+</body>
+</html>
