@@ -28,6 +28,8 @@ class Wishlist(models.Model):
         return self.user == user
     
     def shared_with_user(self, user):
+        if user == self.user:
+            return False
 
         if self.privacy_level == 1:
             if user in self.users_with_permission.all():
@@ -37,11 +39,9 @@ class Wishlist(models.Model):
                     return True
         return False
     
+    
     def user_can_view(self, user):
-        if self.privacy_level == 0:
-            return True
-        else:
-            return self.user_has_permission(user)
+        return any([self.user == user, self.privacy_level == 0, self.shared_with_user(user)])
     
 class Category(models.Model):
     name = models.CharField(max_length=100)

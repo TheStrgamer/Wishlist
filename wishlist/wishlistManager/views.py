@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Wishlist, Category, Item, WishlistGroup, GroupInvite
 
@@ -10,6 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth.models import User
 from django.views import View
+
+#user related views
 
 def register_user_view(request):
     if request.method == "POST":
@@ -50,10 +52,12 @@ def logout_view(request):
     
 
 
-# Create your views here.
+# Home.
 def index(request):
     return render(request, 'index.html')
 
+
+# Wishlist related views
 @login_required
 def create_wishlist_view(request):
     if request.method== "POST":
@@ -81,6 +85,21 @@ def your_wishlists_view(request):
     context = {'wishlist_list': wishlists}
     return render(request, 'wishlist/your_wishlists.html', context)
 
+def wishlist_detail(request, wishlist_id):
+
+    current_wishlist = get_object_or_404(Wishlist, id=wishlist_id)
+    items = Item.objects.filter(wishlist = current_wishlist)
+    can_view = current_wishlist.user_can_view(request.user)
+    if can_view == False:
+        # current_wishlist = Wishlist.objects.filter(id = wishlist_id)
+
+        current_wishlist = None
+        items = None
+    context = {'wishlist': current_wishlist, 'items': items, 'can_view':can_view}
+    return render(request, 'wishlist/wishlist.html', context)
+
+
+# Group related views
 @login_required
 def groups_view(request):
     groups = WishlistGroup.objects.all()

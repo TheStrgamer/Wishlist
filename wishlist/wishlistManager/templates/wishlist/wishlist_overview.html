@@ -18,16 +18,18 @@
         <p>You have not been shared any wishlists</p>
         {% endif %}
         {% for wishlist in wishlist_list %}
+        <a href="{% url 'wishlist_detail' wishlist.id %}">
             <div class= "wishlist">
                 <h2>{{ wishlist.name }}</h2>
                 {% if wishlist.description %}
                     <p>{{ wishlist.description }}</p>
                 {% endif %}
-                <a href="{% url 'wishlist_list' %}">View</a>
+                <a ></a>
 
                 <p>Created by: {{ wishlist.user }}</p>
 
             </div>
+        </a>
         {% endfor %}
     {% endblock %}
 

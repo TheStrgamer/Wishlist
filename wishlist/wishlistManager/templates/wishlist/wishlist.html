@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>{{wishlist.name}}</title>
+    {% endblock %}  
+
+</head>
+<body>
+    {% block content %}
+    {% if can_view == False %}
+    <h2> You do not have permisson to view this wishlist </h2>
+    {% endif %}
+    {% if can_view %}
+    <h2> {{ wishlist.name }}</h2>
+    <br>
+    {% if wishlist.description %}
+    <p>{{ wishlist.description }}</p>
+    <br>
+    {% endif %}
+        {% if items|length == 0 %}
+        <p>Wishlist has no items</p>
+        {% endif %}
+        {% for item in items %}
+            <div class="wishlist-item">
+                <h3>{{ item.name }}</h3>
+                {% if item.image%}
+                <img class="item-image"  src="{{ item.image.url }}" alt="{{ item.name }}"><br>
+                {% endif %}
+
+                {% if item.description %}
+                <p>{{item.description}}</p>
+                {% endif%}
+
+                {% if item.example_link %}
+                <a href="{{ item.example_link }}">{{ item.example_link }}</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if wishlist.user == request.user %}
+        <br>
+        <button>+</button>
+        {% endif %}
+    {% endif %}
+    {% endblock %}
+
+    
+</body>
+</html>
