@@ -65,7 +65,7 @@ def create_wishlist_view(request):
         form = WishlistForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
-            return redirect('index') 
+            return redirect('your_wishlists') 
         else:
             print(form.errors)       
     else: 
@@ -73,7 +73,22 @@ def create_wishlist_view(request):
     context = {'form': form}
     return render(request, 'wishlist/create_wishlist.html', context)
 
-# Wishlist related views
+@login_required
+def edit_wishlist(request, wishlist_id):
+    wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+
+    if request.method == "POST":
+        form = WishlistForm(request.POST, user = request.user, instance=wishlist)
+        if form.is_valid():
+            form.save()
+            url = reverse('wishlist_detail', args=[wishlist_id])
+            return redirect(url) 
+    else:
+        form = WishlistForm(user = request.user, instance=wishlist)
+    context = {'form':form}
+    return render(request, 'wishlist/create_wishlist.html', context)
+    
+
 @login_required
 def add_item_view(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)

@@ -16,11 +16,16 @@
     <h2> You do not have permisson to view this wishlist </h2>
     {% endif %}
     {% if can_view %}
-    <h2> {{ wishlist.name }}</h2>
-    <br>
-    {% if wishlist.description %}
-    <p>{{ wishlist.description }}</p>
-    <br>
+        {% if request.user == wishlist.user %}
+            <form action="{% url 'edit_wishlist' wishlist.id %}" method = "get">
+                <button type="submit">edit</button>
+            </form> 
+        {% endif %}
+        <h2> {{ wishlist.name }}</h2>
+        <br>
+        {% if wishlist.description %}
+        <p>{{ wishlist.description }}</p>
+        <br>
     {% endif %}
         {% if items|length == 0 %}
         <p>Wishlist has no items</p>
