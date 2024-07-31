@@ -87,6 +87,17 @@ def edit_wishlist(request, wishlist_id):
         form = WishlistForm(user = request.user, instance=wishlist)
     context = {'form':form}
     return render(request, 'wishlist/create_wishlist.html', context)
+
+@login_required
+def delete_wishlist(request, wishlist_id):
+    wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+    if request.method == "POST":
+        wishlist.delete()
+        return redirect('your_wishlists')
+    context = {'name': wishlist.name, 'type': 'wishlist', 'wishlist':wishlist}
+    return render(request, 'confirm_delete.html', context)
+
+
     
 
 @login_required

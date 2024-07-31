@@ -20,6 +20,10 @@
             <form action="{% url 'edit_wishlist' wishlist.id %}" method = "get">
                 <button type="submit">edit</button>
             </form> 
+            <form action="{% url 'delete_wishlist' wishlist.id %}" method="get">
+                {% csrf_token %}
+                <button type="submit" >Delete</button>
+            </form>
         {% endif %}
         <h2> {{ wishlist.name }}</h2>
         <br>

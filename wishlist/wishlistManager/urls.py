@@ -13,6 +13,7 @@ urlpatterns = [
     path('wishlist/<int:wishlist_id>/', views.wishlist_detail, name='wishlist_detail'),
     path('wishlist/<int:wishlist_id>/edit', views.edit_wishlist, name='edit_wishlist'),
     path('wishlist/<int:wishlist_id>/add_item', views.add_item_view, name='add_item'),
+    path('wishlist/<int:wishlist_id>/delete/', views.delete_wishlist, name='delete_wishlist'),
     path("groups/", views.groups_view, name="groups"),
     path("login/", views.login_view, name="login"),
     path("register/", views.register_user_view, name="register"),

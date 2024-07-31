@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>Wishlist</title>
+    
+    {% endblock %}
+</head>
+<body>
+    
+    {% block content %}
+
+
+    <h2> Are you sure you want to delete the {{type}} "{{name}}"</h2>
+
+    {% if type == 'wishlist' %}
+    <form action="{% url 'delete_wishlist' wishlist.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Wishlist</button>
+    </form>
+    {% endif %}
+
+    <button href = "{% url 'index' %}">Cancel</button>
+
+
+
+    {% endblock %}
+
+    
+</body>
+</html>
