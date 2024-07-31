@@ -24,6 +24,15 @@
     </form>
     {% endif %}
 
+    {% if type == 'item' %}
+    <form action="{% url 'delete_item' wishlist.id item.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Item</button>
+    </form>
+    {% endif %}
+
+
+
     <button href = "{% url 'index' %}">Cancel</button>
 
 

@@ -69,13 +69,27 @@ class ItemForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         self.wishlist = kwargs.pop('wishlist')
+        self.instance = kwargs.pop('instance', None)
         super(ItemForm, self).__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.filter(pk=self.user.pk)
 
+        if self.instance:
+            self.fields['name'].initial = self.instance.name
+            self.fields['description'].initial = self.instance.description
+            self.fields['link'].initial = self.instance.example_link
+            self.fields['image'].initial = self.instance.image 
+            self.fields['category'].initial = self.instance.category
+
     def save(self):
-        item = Item.objects.create(name = self.cleaned_data['name'], description = self.cleaned_data['description'], example_link= self.cleaned_data['link'], image=self.cleaned_data['image'], wishlist = self.wishlist)
-        item.category = (self.cleaned_data['category'])
-        item.save()
+        if self.instance:
+            self.instance.name = self.cleaned_data['name']
+            self.instance.description = self.cleaned_data['description']
+            self.instance.example_link= self.cleaned_data['link']
+            self.instance.image=self.cleaned_data['image'] 
+        else:
+            self.instance = Item.objects.create(name = self.cleaned_data['name'], description = self.cleaned_data['description'], example_link= self.cleaned_data['link'], image=self.cleaned_data['image'], wishlist = self.wishlist)
+        self.instance.category = (self.cleaned_data['category'])
+        self.instance.save()
 
 
     

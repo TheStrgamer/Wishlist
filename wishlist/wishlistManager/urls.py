@@ -15,15 +15,20 @@ urlpatterns = [
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-spesific_item_list = [
+spesific_item_patterns = [
+    path('edit', views.edit_item_view, name='edit_item'),
+    path('delete', views.delete_item_view, name='delete_item'),
+
+
 
 ]
 
 spesific_wishlist_patterns = [
     path('', views.wishlist_detail, name='wishlist_detail'),
-    path('edit', views.edit_wishlist, name='edit_wishlist'),
+    path('edit', views.edit_wishlist_view, name='edit_wishlist'),
     path('add_item', views.add_item_view, name='add_item'),
-    path('delete/', views.delete_wishlist, name='delete_wishlist'),
+    path('delete/', views.delete_wishlist_view, name='delete_wishlist'),
+    path('<int:item_id>/', include(spesific_item_patterns)),
 ]
 
 wishlist_url_patterns = [    

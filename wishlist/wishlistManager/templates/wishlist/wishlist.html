@@ -48,6 +48,13 @@
                 {% if item.example_link %}
                 <a href="{{ item.example_link }}">{{ item.example_link }}</a>
                 {% endif %}
+
+                <form action="{% url 'edit_item' wishlist.id item.id %}" method = "get">
+                    <button type="submit">edit</button>
+                </form> 
+                <form action="{% url 'delete_item' wishlist.id item.id %}" method = "get">
+                    <button type="submit">delete</button>
+                </form> 
             </div>
         {% endfor %}
         {% if wishlist.user == request.user %}

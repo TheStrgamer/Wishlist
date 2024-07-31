@@ -74,7 +74,7 @@ def create_wishlist_view(request):
     return render(request, 'wishlist/create_wishlist.html', context)
 
 @login_required
-def edit_wishlist(request, wishlist_id):
+def edit_wishlist_view(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)
     if wishlist.user_is_creator(request.user) == False:
         url = reverse('wishlist_detail', args=[wishlist_id])
@@ -92,7 +92,7 @@ def edit_wishlist(request, wishlist_id):
     return render(request, 'wishlist/create_wishlist.html', context)
 
 @login_required
-def delete_wishlist(request, wishlist_id):
+def delete_wishlist_view(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)
     if wishlist.user_is_creator(request.user) == False:
         url = reverse('wishlist_detail', args=[wishlist_id])
@@ -126,6 +126,45 @@ def add_item_view(request, wishlist_id):
         form = ItemForm(user=request.user, wishlist = wishlist)
     context = {'form': form}
     return render(request, 'wishlist/add_item.html', context)
+
+@login_required
+def edit_item_view(request, item_id, wishlist_id):
+    item = get_object_or_404(Item, id=item_id)
+    wishlist = get_object_or_404(Wishlist, id=wishlist_id)
+
+    if item.wishlist.user_is_creator(request.user) == False:
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url) 
+    
+    if request.method == "POST":
+        form = ItemForm(request.POST, request.FILES, user=request.user, wishlist = wishlist, instance=item )
+        if form.is_valid():
+            form.save()
+            url = reverse('wishlist_detail', args=[wishlist_id])
+            return redirect(url) 
+    else:
+        form = ItemForm(user=request.user, wishlist = wishlist, instance=item )
+    context = {'form':form}
+    return render(request, 'wishlist/add_item.html', context)
+    
+@login_required
+def delete_item_view(request, item_id, wishlist_id):
+    item = get_object_or_404(Item, id=item_id)
+    wishlist = get_object_or_404(Wishlist, id=wishlist_id)
+    if item.wishlist.user_is_creator(request.user) == False:
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url) 
+
+    if request.method == "POST":
+        item.delete()
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url)     
+    context = {'name': item.name, 'type': 'item', 'item':item, 'wishlist':wishlist}
+    return render(request, 'confirm_delete.html', context)
+    
+
+
+
 
 @login_required
 def wishlist_view(request):
