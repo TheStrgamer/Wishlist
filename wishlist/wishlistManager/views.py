@@ -76,6 +76,9 @@ def create_wishlist_view(request):
 @login_required
 def edit_wishlist(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+    if wishlist.user_is_creator(request.user) == False:
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url) 
 
     if request.method == "POST":
         form = WishlistForm(request.POST, user = request.user, instance=wishlist)
@@ -91,6 +94,9 @@ def edit_wishlist(request, wishlist_id):
 @login_required
 def delete_wishlist(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+    if wishlist.user_is_creator(request.user) == False:
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url) 
     if request.method == "POST":
         wishlist.delete()
         return redirect('your_wishlists')
@@ -103,6 +109,9 @@ def delete_wishlist(request, wishlist_id):
 @login_required
 def add_item_view(request, wishlist_id):
     wishlist=get_object_or_404(Wishlist, id=wishlist_id)
+    if wishlist.user_is_creator(request.user) == False:
+        url = reverse('wishlist_detail', args=[wishlist_id])
+        return redirect(url) 
     #wishlist = Wishlist.objects.filter(id = wishlist_id)
     if request.method== "POST":
         form = ItemForm(request.POST, request.FILES, user=request.user, wishlist = wishlist )

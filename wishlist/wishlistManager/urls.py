@@ -31,14 +31,12 @@ wishlist_url_patterns = [
     path("", views.wishlist_view, name="wishlist_list"),
     path("your_wishlists", views.your_wishlists_view, name="your_wishlists"),
     path('<int:wishlist_id>/', include(spesific_wishlist_patterns))
-
 ]
 
 group_url_patterns = [
     path("", views.groups_view, name="groups"),
 
 ]
-
 
 urlpatterns += [
     path('wishlist/', include(wishlist_url_patterns)),
