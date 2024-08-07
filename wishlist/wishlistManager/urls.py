@@ -35,11 +35,19 @@ wishlist_url_patterns = [
     path("create", views.create_wishlist_view, name="create_wishlist"),
     path("", views.wishlist_view, name="wishlist_list"),
     path("your_wishlists", views.your_wishlists_view, name="your_wishlists"),
-    path('<int:wishlist_id>/', include(spesific_wishlist_patterns))
+    path('<int:wishlist_id>/', include(spesific_wishlist_patterns)),
+]
+
+
+spesific_group_patterns = [
+    path("", views.group_detail, name="group_detail")
+
 ]
 
 group_url_patterns = [
     path("", views.groups_view, name="groups"),
+    path('<int:group_id>/', include(spesific_group_patterns)),
+
 
 ]
 

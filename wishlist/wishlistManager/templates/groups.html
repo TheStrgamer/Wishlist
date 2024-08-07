@@ -27,7 +27,7 @@
                 {% if group.description %}
                     <p>{{ group.description }}</p>
                 {% endif %}
-                <a >View</a>
+                <a href = {% url 'group_detail' group.id %}>View</a>
 
             </div>
             <br>

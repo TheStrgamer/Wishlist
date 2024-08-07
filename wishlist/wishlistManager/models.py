@@ -9,6 +9,11 @@ class WishlistGroup(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def can_view(self, user):
+        if self.owner == user or user in self.users.all():
+            return True
+        return False
 
 
 class Wishlist(models.Model):

@@ -202,6 +202,21 @@ def groups_view(request):
     context = {'group_list': your_groups, 'owned_groups': owned_groups}
     return render(request, 'groups.html', context)
 
+@login_required
+def group_detail(request, group_id):
+    group = get_object_or_404(WishlistGroup, id=group_id)
+    users = group.members.all()
+    owner = group.owner
+    can_view = group.can_view(request.user)
+    if can_view == False:
+        group = None
+
+    wishlists = Wishlist.objects.all()
+    wishlists_for_group = [wishlist for wishlist in wishlists if group in wishlist.groups_with_permission.all()]
+    context = {'group':group, 'wishlists':wishlists_for_group, 'can_view':can_view, 'users':users, 'owner':owner}
+    return render(request, 'group_detail.html', context)
+    
+
 
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'
