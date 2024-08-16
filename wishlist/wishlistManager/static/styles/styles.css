@@ -50,6 +50,7 @@ button:hover{
     left: 0;
     box-sizing: border-box;
     
+    z-index: 100;
 }
 
 .topbar-left {
@@ -93,6 +94,7 @@ button:hover{
     overflow-y: auto;
     box-sizing: border-box;
     max-height: calc(100vh - 50px);
+    background-color: #99999952;
 }
 
 .wishlist {
@@ -110,19 +112,7 @@ button:hover{
 
 }
 
-.wishlist-item {
-    margin: 10px;
-    padding: 10px;
-    background-color: #a9a9a9;
-    text-align: center;
-    border-radius: 10px;
-    width: 80%;
-}
 
-.wishlist-item img {
-    width: 100px;
-    height: 100px;
-}
 
 
 
@@ -141,7 +131,6 @@ button:hover{
     margin: 0 auto 20px;
 }
 
-/* Form Styling */
 
 form{
     max-width: 400px;
@@ -162,7 +151,6 @@ input[type="password"], textarea {
     box-sizing: border-box;
 }
 
-/* Success Page Styling */
 .success-message{
     text-align: center;
     max-width: 400px;
@@ -193,4 +181,103 @@ input[type="password"], textarea {
     list-style-type: none;
 }
 
+.edit_button{
+    width: 35px;
+    height:20px;
+    padding: 0px;
+    flex:1;
+}
+.edit_button button {
+    background-color: #f8c811;
+}
+.delete_button{
+    width: 35px;
+    height:20px;
+    padding: 0px;
+    flex:1;
+}
+.delete_button button {
+    background-color: #db2828;
+}
 
+.wishlist-item {
+    margin: 10px;
+    padding: 10px;
+    background-color: #a9a9a9;
+    text-align: center;
+    border-radius: 10px;
+    min-width: 600px;
+    max-height: 225px;
+
+}
+
+.wishlist-item img {
+    width: 125px;
+    height: 125px;
+}
+
+.wishlist-item-container {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item-content {
+    position: relative;
+    display: flex;
+
+}
+.item-text {
+    flex:2;
+    overflow-y:auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.item-title {
+    display: flex;
+    flex-direction: row;
+
+}
+.item-title h3 {
+    flex: 6;
+}
+
+.item-image {
+    flex:1;
+}
+
+.edit_wishlist_button{
+    width: 100px;
+    height:40px;
+    padding: 0px;
+    flex:1;
+
+
+}
+.edit_wishlist_button button {
+    background-color: #f8c811;
+}
+.delete_wishlist_button{
+    width: 100px;
+    height:40px;
+    padding: 0px;
+    flex:1;
+
+}
+.delete_wishlist_button button {
+    background-color: #db2828;
+}
+
+.wishlist-title {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    text-align: center;
+
+}
+.wishlist-title h2 {
+    flex: 6;
+}

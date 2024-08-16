@@ -16,16 +16,24 @@
     <h2> You do not have permisson to view this wishlist </h2>
     {% endif %}
     {% if can_view %}
-        {% if request.user == wishlist.user %}
-            <form action="{% url 'edit_wishlist' wishlist.id %}" method = "get">
-                <button type="submit">edit</button>
+    
+        <div class="wishlist-title">
+            <div class = "edit_wishlist_button"></div><div class = "delete_wishlist_button"></div>
+
+            <h2> {{ wishlist.name }}</h2>
+            {% if request.user == wishlist.user %}
+            
+            <form action="{% url 'edit_wishlist' wishlist.id %}" method = "get" class="edit_wishlist_button">
+                <button type="submit" class="edit_wishlist_button">edit wishlist</button>
             </form> 
-            <form action="{% url 'delete_wishlist' wishlist.id %}" method="get">
+            <form action="{% url 'delete_wishlist' wishlist.id %}" method="get" class="delete_wishlist_button">
                 {% csrf_token %}
-                <button type="submit" >Delete</button>
+                <button type="submit" class="delete_wishlist_button" >Delete wishlist</button>
             </form>
-        {% endif %}
-        <h2> {{ wishlist.name }}</h2>
+            {% else %}
+            <div class = "edit_wishlist_button"></div><div class = "delete_wishlist_button"></div>
+            {% endif %}
+        </div>
         <br>
         {% if wishlist.description %}
         <p>{{ wishlist.description }}</p>
@@ -34,29 +42,53 @@
         {% if items|length == 0 %}
         <p>Wishlist has no items</p>
         {% endif %}
+        <div class="wishlist-item-container">
         {% for item in items %}
             <div class="wishlist-item">
-                <h3>{{ item.name }}</h3>
-                {% if item.image %}
-                <img class="item-image"  src="{{ item.image.url }}" alt="{{ item.name }}"><br>
-                {% endif %}
+        
+ 
+                <div class="item-content">
+                    <div class="item_image">
+                        {% if item.image %}
+                        <img class="item-image"  src="{{ item.image.url }}" alt="{{ item.name }}"><br>
+                        {% endif %}
+                    </div>
+                    <div class="item-text">
 
-                {% if item.description %}
-                <p>{{item.description}}</p>
-                {% endif%}
+                        <div class="item-title">
+                            {% if request.user == wishlist.user %}<div class = "edit_button"></div><div class = "edit_button"></div>{% endif %}
 
-                {% if item.example_link %}
-                <a href="{{ item.example_link }}">{{ item.example_link }}</a>
-                {% endif %}
+                            <h3>{{ item.name }}</h3>
 
-                <form action="{% url 'edit_item' wishlist.id item.id %}" method = "get">
-                    <button type="submit">edit</button>
-                </form> 
-                <form action="{% url 'delete_item' wishlist.id item.id %}" method = "get">
-                    <button type="submit">delete</button>
-                </form> 
+                            {% if request.user == wishlist.user %}
+                                <form action="{% url 'edit_item' wishlist.id item.id %}" method = "get" class="edit_button">
+                                    <button type="submit" class="edit_button">edit</button>
+                                </form> 
+                                <form action="{% url 'delete_item' wishlist.id item.id %}" method = "get" class="delete_button">
+                                    <button type="submit" class="delete_button">delete</button>
+                                </form> 
+                            {% endif %}
+                        </div>
+                        
+
+                        {% if item.description %}
+                        <p>{{item.description}}</p>
+                        {% endif%}
+
+                        {% if item.example_link %}
+                            <br>
+                            {% if item.example_link|length <= 45 %}
+                            <p>example-link: <a href="{{ item.example_link }}">{{ item.example_link }}</a></p>
+                            {% else %}
+                                <p>example-link: <a href="{{ item.example_link }}">click here</a></p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
             </div>
         {% endfor %}
+        </div>
         {% if wishlist.user == request.user %}
         <br>
         <form action="{% url 'add_item' wishlist.id %}" method = "get">
