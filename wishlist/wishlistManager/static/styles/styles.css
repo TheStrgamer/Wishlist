@@ -94,6 +94,7 @@ button:hover{
     overflow-y: auto;
     box-sizing: border-box;
     max-height: calc(100vh - 50px);
+    min-height: 80%;
     background-color: #99999952;
 }
 
@@ -206,7 +207,7 @@ input[type="password"], textarea {
     background-color: #a9a9a9;
     text-align: center;
     border-radius: 10px;
-    min-width: 600px;
+    min-width: 60%;
     max-height: 225px;
 
 }
@@ -220,6 +221,7 @@ input[type="password"], textarea {
     width: 90%;
     display: flex;
     flex-wrap: wrap;
+    
 }
 
 .item-content {
@@ -280,4 +282,27 @@ input[type="password"], textarea {
 }
 .wishlist-title h2 {
     flex: 6;
+}
+
+
+.group {
+    background-color: #cccccc;
+    width: 350px;
+    min-height: 100px;
+}
+
+.group_content {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin-left: 5%;
+}
+
+.group_lists {
+    flex:2
+
+}
+
+.invites {
+    flex:1
 }

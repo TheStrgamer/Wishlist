@@ -11,7 +11,7 @@ class WishlistGroup(models.Model):
         return self.name
     
     def can_view(self, user):
-        if self.owner == user or user in self.users.all():
+        if self.owner == user or user in self.members.all():
             return True
         return False
 
