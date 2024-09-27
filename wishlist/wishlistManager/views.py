@@ -200,7 +200,7 @@ def groups_view(request):
     your_groups = [group for group in groups if request.user in group.members.all() and group.owner != request.user]
     owned_groups = [group for group in groups if group.owner == request.user]
     context = {'group_list': your_groups, 'owned_groups': owned_groups}
-    return render(request, 'groups.html', context)
+    return render(request, 'groups/groups.html', context)
 
 @login_required
 def group_detail(request, group_id):
@@ -214,7 +214,7 @@ def group_detail(request, group_id):
     wishlists = Wishlist.objects.all()
     wishlists_for_group = [wishlist for wishlist in wishlists if group in wishlist.groups_with_permission.all()]
     context = {'group':group, 'wishlists':wishlists_for_group, 'can_view':can_view, 'users':users, 'owner':owner}
-    return render(request, 'group_detail.html', context)
+    return render(request, 'groups/group_detail.html', context)
     
 
 
