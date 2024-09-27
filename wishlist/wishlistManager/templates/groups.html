@@ -25,12 +25,13 @@
                 {% for group in owned_groups %}
 
 
-                    <a href = {% url 'group_detail' group.id %}>
+                    <a class="group_link" href = {% url 'group_detail' group.id %}>
                         <div class= "group">
                             <h2>{{ group.name }}</h2>
                             {% if group.description %}
                                 <p>{{ group.description }}</p>
                             {% endif %}
+                            
 
                         </div>
                     </a>
