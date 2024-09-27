@@ -33,13 +33,13 @@
         <div class="topbar-right">
 
             {% if request.user.is_authenticated %}
-            <button class="topbarButton" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</button>
+                <button class="topbarButton" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</button>
             {% else %}
-            <button class="topbarButton" href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</button>
+                <button class="topbarButton" href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</button>
             {% endif %}
 
             {% if request.user.is_authenticated and request.user.is_staff %}
-            <button class="topbarButton" href="{% url 'admin:index' %}">Admin</button>
+                <button class="topbarButton" onclick="window.location.href='{% url 'admin:index' %}'">Admin</button>
             {% endif %}
 
         </div>
