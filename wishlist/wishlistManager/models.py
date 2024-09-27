@@ -6,6 +6,7 @@ class WishlistGroup(models.Model):
     description = models.TextField()
     owner = models.ForeignKey('auth.User', related_name='owned_groups', on_delete=models.CASCADE)
     members = models.ManyToManyField('auth.User', related_name='wishlist_groups')
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return self.name
