@@ -92,5 +92,29 @@ class ItemForm(forms.Form):
         self.instance.save()
 
 
-    
+class WishlistGroupForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True, label='Name')
+    description = forms.CharField(required=False, label='Description', widget=forms.Textarea)
+    image = forms.ImageField(required=False)
+    def __init__(self, *args, **kwargs):
+        self.owner = kwargs.pop('owner')
+        self.instance = kwargs.pop('instance', None)
+        super(WishlistGroupForm, self).__init__(*args, **kwargs)
+
+
+        if self.instance:
+            self.fields['name'].initial = self.instance.name
+            self.fields['description'].initial = self.instance.description
+            self.fields['image'].initial = self.instance.image
+
+    def save(self):
+        if self.instance:
+            self.instance.name = self.cleaned_data['name']
+            self.instance.description = self.cleaned_data['description']
+            self.instance.image = self.cleaned_data['image']
+        else:
+            self.instance = WishlistGroup.objects.create(name=self.cleaned_data['name'], description=self.cleaned_data['description'], image = self.cleaned_data['image'], owner=self.owner)
+        self.instance.save()
+        return self.instance
+
 

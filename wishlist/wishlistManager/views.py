@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from .models import Wishlist, Category, Item, WishlistGroup, GroupInvite
 
-from .forms import UserRegisterForm, WishlistForm, ItemForm
+from .forms import UserRegisterForm, WishlistForm, ItemForm, WishlistGroupForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -216,7 +216,19 @@ def group_detail(request, group_id):
     context = {'group':group, 'wishlists':wishlists_for_group, 'can_view':can_view, 'users':users, 'owner':owner}
     return render(request, 'groups/group_detail.html', context)
     
-
+@login_required
+def create_group_view(request):
+    if request.method== "POST":
+        form = WishlistGroupForm(request.POST, owner=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('groups') 
+        else:
+            print(form.errors)       
+    else: 
+        form = WishlistGroupForm(owner=request.user)
+    context = {'form': form}
+    return render(request, 'groups/create_group.html', context)
 
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'

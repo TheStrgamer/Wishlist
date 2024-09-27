@@ -16,7 +16,12 @@
 
         <div class="group_content">
             <div class="group_lists">
-                <h1>Owned groups</h1>
+                <div class="titlebox">
+                    <h1>Owned groups </h1>       
+                    <form action="{% url 'create_group' %}" method = "get">
+                        <button class="transparent_button" type="submit">+</button>
+                    </form>
+                </div>
                 <br>
                 {% if owned_groups|length == 0 %}
                 <p>You do not own any groups</p>

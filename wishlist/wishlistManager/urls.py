@@ -45,6 +45,7 @@ spesific_group_patterns = [
 ]
 
 group_url_patterns = [
+    path("create", views.create_group_view, name="create_group"),
     path("", views.groups_view, name="groups"),
     path('<int:group_id>/', include(spesific_group_patterns)),
 
