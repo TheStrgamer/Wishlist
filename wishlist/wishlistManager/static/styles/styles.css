@@ -317,6 +317,10 @@ input[type="password"], textarea {
 .group_link:hover {
     text-decoration: none;
 }
+.group_link {
+    width: 350px;
+    display: block;
+}
 
 .group_content {
     display: flex;
