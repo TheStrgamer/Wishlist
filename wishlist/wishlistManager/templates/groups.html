@@ -25,14 +25,15 @@
                 {% for group in owned_groups %}
 
 
-                    <div class= "group">
-                        <h2>{{ group.name }}</h2>
-                        {% if group.description %}
-                            <p>{{ group.description }}</p>
-                        {% endif %}
-                        <a href = {% url 'group_detail' group.id %}>View</a>
+                    <a href = {% url 'group_detail' group.id %}>
+                        <div class= "group">
+                            <h2>{{ group.name }}</h2>
+                            {% if group.description %}
+                                <p>{{ group.description }}</p>
+                            {% endif %}
 
-                    </div>
+                        </div>
+                    </a>
                     <br>
                 {% endfor %}
 
@@ -42,14 +43,15 @@
                 <p>You are not a member of any groups</p>
                 {% endif %}
                 {% for group in group_list %}
-                    <div class= "group">
-                        <h2>{{ group.name }}</h2>
-                        {% if group.description %}
-                            <p>{{ group.description }}</p>
-                        {% endif %}
-                        <a href = {% url 'group_detail' group.id %}>View</a>
+                    <a href = {% url 'group_detail' group.id %}>
+                        <div class= "group">
+                            <h2>{{ group.name }}</h2>
+                            {% if group.description %}
+                                <p>{{ group.description }}</p>
+                            {% endif %}
 
-                    </div>
+                        </div>
+                    </a>
                     <br>
                 {% endfor %}
             </div>
