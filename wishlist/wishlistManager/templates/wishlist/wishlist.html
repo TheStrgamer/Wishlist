@@ -13,14 +13,14 @@
 <body>
     {% block content %}
     {% if can_view == False %}
-    <h2> You do not have permisson to view this wishlist </h2>
+    <h1> You do not have permisson to view this wishlist </h1>
     {% endif %}
     {% if can_view %}
     
         <div class="wishlist-title">
             <div class = "edit_wishlist_button"></div><div class = "delete_wishlist_button"></div>
 
-            <h2> {{ wishlist.name }}</h2>
+            <h1> {{ wishlist.name }}</h1>
             {% if request.user == wishlist.user %}
             
             <form action="{% url 'edit_wishlist' wishlist.id %}" method = "get" class="edit_wishlist_button">

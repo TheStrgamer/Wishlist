@@ -12,7 +12,7 @@
 </head>
 <body>
     {% block content %}
-        <h2>Wishlists shared with you</h2>
+        <h1>Wishlists shared with you</h1>
         <br>
         {% if wishlist_list|length == 0 %}
         <p>You have not been shared any wishlists</p>
@@ -20,7 +20,7 @@
         {% for wishlist in wishlist_list %}
         <a href="{% url 'wishlist_detail' wishlist.id %}">
             <div class= "wishlist">
-                <h2>{{ wishlist.name }}</h2>
+                <h2 >{{ wishlist.name }}</h2>
                 {% if wishlist.description %}
                     <p>{{ wishlist.description }}</p>
                 {% endif %}
