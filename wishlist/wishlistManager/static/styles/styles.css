@@ -85,6 +85,21 @@ button:hover{
     font-size: 20px;
 }
 
+.topbarButton {
+    background-color: #00000000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    height: 40px;
+}
+.topbarButton:hover{
+    background-color: #a1a1a139;
+    transition: 0.1ms;
+}
+
 .centered_box{
     display: flex;
     flex-direction: column;

@@ -23,24 +23,25 @@
         <div class="topbar-left"></div>
 
         <div class="topbar-center">
-            <a href="{% url 'index' %}">Home</a>
-            <a href="{% url 'wishlist_list' %}">Wishlists</a>
-            <a href="{% url 'your_wishlists' %}" >Your Wishlists</a>
-            <a href="{% url 'groups' %}" >Groups</a>
+            <button class="topbarButton" onclick="window.location.href = '{% url 'index' %}'">Home</button>
+            <button class="topbarButton" onclick="window.location.href = '{% url 'wishlist_list' %}'">Wishlists</button>
+            <button class="topbarButton" onclick="window.location.href = '{% url 'your_wishlists' %}'">Your Wishlists</button>
+            <button class="topbarButton" onclick="window.location.href = '{% url 'groups' %}'">Groups</button>
 
         </div>
         <div class="topbar-spacer"></div>
         <div class="topbar-right">
 
             {% if request.user.is_authenticated %}
-            <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+            <button class="topbarButton" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</button>
             {% else %}
-            <a href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</a>
+            <button class="topbarButton" href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</button>
             {% endif %}
 
             {% if request.user.is_authenticated and request.user.is_staff %}
-            <a href="{% url 'admin:index' %}">Admin</a>
+            <button class="topbarButton" href="{% url 'admin:index' %}">Admin</button>
             {% endif %}
+
         </div>
     </nav>
 
