@@ -100,6 +100,50 @@ button:hover{
     transition: 0.1ms;
 }
 
+@media (max-width: 700px) {
+    .topbar-center, .topbar-left, .topbar-right {
+        display: none;
+    }
+
+    .dropdown {
+        display: block;
+    }
+}
+@media (max-width: 1000px) {
+    .topbar-center, .topbar-left, .topbar-right, .topbarButton {
+        padding: 0px;
+    }
+
+
+}
+.dropdown {
+    display: none;
+    position: relative;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #cac7c7;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 .centered_box{
     display: flex;
     flex-direction: column;
@@ -291,7 +335,7 @@ input[type="password"], textarea {
 
 }
 .edit_wishlist_button button {
-    background-color: #f8c811;
+    background-color: #d8a811;
 }
 .delete_wishlist_button{
     width: 100px;
@@ -301,7 +345,7 @@ input[type="password"], textarea {
 
 }
 .delete_wishlist_button button {
-    background-color: #db2828;
+    background-color: #ab2828;
 }
 
 .wishlist-title {

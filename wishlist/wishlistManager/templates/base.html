@@ -20,29 +20,45 @@
     </form>
 
     <nav class="topbar">
-        <div class="topbar-left"></div>
-
-        <div class="topbar-center">
+        <div class="topbar-left" id="topbar-left"></div>
+            
+        <div class="topbar-center" id="topbar-center">
             <button class="topbarButton" onclick="window.location.href = '{% url 'index' %}'">Home</button>
             <button class="topbarButton" onclick="window.location.href = '{% url 'wishlist_list' %}'">Wishlists</button>
             <button class="topbarButton" onclick="window.location.href = '{% url 'your_wishlists' %}'">Your Wishlists</button>
             <button class="topbarButton" onclick="window.location.href = '{% url 'groups' %}'">Groups</button>
-
         </div>
-        <div class="topbar-spacer"></div>
-        <div class="topbar-right">
-
+        
+        <div class="topbar-right" id="topbar-right">
             {% if request.user.is_authenticated %}
                 <button class="topbarButton" href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</button>
             {% else %}
                 <button class="topbarButton" href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</button>
             {% endif %}
-
+                
             {% if request.user.is_authenticated and request.user.is_staff %}
                 <button class="topbarButton" onclick="window.location.href='{% url 'admin:index' %}'">Admin</button>
             {% endif %}
-
         </div>
+        
+        <div class="dropdown" id="topbar-dropdown">
+            <button class="topbarButton">Menu</button>
+            <div class="dropdown-content">
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'wishlist_list' %}">Wishlists</a>
+                <a href="{% url 'your_wishlists' %}">Your Wishlists</a>
+                <a href="{% url 'groups' %}">Groups</a>
+                {% if request.user.is_authenticated %}
+                    <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">Logout</a>
+                {% else %}
+                    <a href="#" onclick="document.getElementById('login-form').submit(); return false;">Login</a>
+                {% endif %}
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <a href="{% url 'admin:index' %}">Admin</a>
+                {% endif %}
+            </div>
+        </div>
+        
     </nav>
 
     <div class="centered_box">
