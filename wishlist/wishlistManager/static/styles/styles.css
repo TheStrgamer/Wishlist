@@ -110,7 +110,7 @@ button:hover{
     box-sizing: border-box;
     max-height: calc(100vh - 50px);
     min-height: 80%;
-    background-color: #bab7b7;
+    background-color: #cac7c7;
 }
 
 .wishlist {
@@ -120,6 +120,12 @@ button:hover{
     text-align: center;
     border-radius: 10px;
     width: 80%;
+    
+    border-top: 3px solid #639a9b;
+    border-left: 3px solid;
+    border-right-color: transparent;
+    border-image: linear-gradient(to bottom, #639a9b, transparent) 1 100%;
+    border-image-slice: 1;
 }
 .wishlist:hover {
     background-color: #a9a9ab;
@@ -228,6 +234,13 @@ input[type="password"], textarea {
     min-width: 60%;
     max-height: 225px;
 
+    
+    border-top: 2px solid #639a9b;
+    border-left: 2px solid;
+    border-right-color: transparent;
+    border-image: linear-gradient(to bottom, #639a9b, transparent) 1 100%;
+    border-image-slice: 1;
+
 }
 
 .wishlist-item img {
@@ -307,8 +320,16 @@ input[type="password"], textarea {
     background-color: #b4b1b1;
     width: 350px;
     min-height: 100px;
-    border-radius: 10px;
-    padding: 5px;  
+    padding: 5px; 
+    border-radius: 10px; 
+
+    border-top: 3px solid #639a9b;
+    border-left: 3px solid;
+    border-right-color: transparent;
+    border-image: linear-gradient(to bottom, #639a9b, transparent) 1 100%;
+    border-image-slice: 1;
+
+
 }
 .group:hover {
     background-color: #a9a9ab;
