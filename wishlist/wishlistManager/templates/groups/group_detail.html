@@ -14,15 +14,25 @@
     
         {% block content %}
 
-        <h1>{{group.name}}</h1>
+        <div class="wishlist-title">
+            <div class = "edit_wishlist_button"></div><div class = "delete_wishlist_button"></div>
 
-        <form action="{% url 'edit_group' group.id %}" method = "get" class="edit_wishlist_button">
-            <button type="submit" class="edit_group_button">Edit</button>
-        </form> 
-        <form action="{% url 'delete_group' group.id %}" method="get" class="delete_wishlist_button">
-            {% csrf_token %}
-            <button type="submit" class="delete_wishlist_button" >Delete</button>
-        </form>
+            <h1>{{group.name}}</h1>
+            {% if request.user == group.owner %}
+            
+            <form action="{% url 'edit_group' group.id %}" method = "get" class="edit_wishlist_button">
+                <button type="submit" class="edit_group_button">Edit</button>
+            </form> 
+            <form action="{% url 'delete_group' group.id %}" method="get" class="delete_wishlist_button">
+                {% csrf_token %}
+                <button type="submit" class="delete_wishlist_button" >Delete</button>
+            </form>
+            {% else %}
+            <div class = "edit_wishlist_button"></div><div class = "delete_wishlist_button"></div>
+            {% endif %}
+        </div>
+
+
         
 
 
