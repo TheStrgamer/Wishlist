@@ -270,14 +270,21 @@ def add_user_to_group_view(request, group_id):
         url = reverse('group_detail', args=[group_id])
         return redirect(url) 
     if request.method== "POST":
+        if User.objects.filter(username=request.POST.get('username')).exists() == False:
+            form = WishlistGroupForm(owner=request.user, instance=group)
+            context = {'form': form, 'group':group, 'message':"No user with that username exists"}
+            return render(request, 'add_user.html', context)
         user = User.objects.get(username=request.POST.get('username'))
+        if user in group.members.all():
+            return redirect('group_detail', group_id)
         group.members.add(user)
         group.save()
         return redirect('group_detail', group_id) 
     else:
-        form = WishlistGroupForm(owner=request.user)
-    context = {'form': form}
+        form = WishlistGroupForm(owner=request.user, instance=group)
+    context = {'form': form, 'group':group, 'message':""}
     return render(request, 'add_user.html', context)
+
 
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'

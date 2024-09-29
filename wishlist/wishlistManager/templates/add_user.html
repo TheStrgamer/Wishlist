@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    {% block title %}
+    <title>Add user</title>
+    
+    {% endblock %}
+</head>
+<body>
+    
+        {% block content %}
+
+        <div class="group_content">
+            <div class="group_lists">
+                <h1>Invite user to {{ group.name }}</h1>       
+                <br>
+                <form class="leftForm" action="{% url 'add_user_to_group' group.id %}" method = "post">
+                    {% csrf_token %}
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
+                    <button type="submit">Invite user</button>
+                    <p>{{ message }}</p>
+                </form>
+                <br>
+                <h1>Current group members</h1>
+                <br>
+                {% if group.members.all|length == 0 %}
+                <p>There are no members in this group</p>
+                {% endif %}
+                {% for member in group.members.all %}
+                    <h3>{{ member.username }}</h3>
+                    <br>
+                {% endfor %}
+            
+            </div>
+
+
+        {% endblock %}
+
+</body>
+</html>

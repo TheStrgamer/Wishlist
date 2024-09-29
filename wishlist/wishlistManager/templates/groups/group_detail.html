@@ -37,7 +37,12 @@
 
 
         <br>
-        <h3>Members:</h3>
+        <div class="titlebox_small" >
+            <h3>Members</h3>
+            <form action="{% url 'add_user_to_group' group.id %}" method = "get">
+                <button class="transparent_button_small" type="submit" >+</button>
+            </form>
+        </div>
         {% for user in users %}
         <br>
 

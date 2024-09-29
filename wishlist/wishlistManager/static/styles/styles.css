@@ -415,6 +415,22 @@ input[type="password"], textarea {
     background-color: #00000000;
 }
 
+.transparent_button_small {
+    background-color: #00000000;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    color: #639a9b;
+    line-height: 0.5;
+    text-align: center;
+}
+.transparent_button_small:hover {
+    background-color: #00000000;
+}
+
 .invites {
     flex:1
 }
@@ -426,4 +442,21 @@ input[type="password"], textarea {
     height: 40px;
     width: 300px;
     padding: 0px;
+}
+.titlebox_small {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 150px;
+    padding: 0px;
+    padding-left: 50px;
+}
+.leftForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 0px;
+    margin-left: 0%;
 }
