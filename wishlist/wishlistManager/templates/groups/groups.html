@@ -65,7 +65,17 @@
 
                 <h1> Invites </h1>
                 <br>
-                <p> you have no current group invites</p>
+                {% if invites|length == 0 %}
+                    <p> you have no current group invites</p>
+                {% endif %}
+                {% for invite in invites %}
+                    <div class="invite">
+                        <h3>{{ invite.group.name }}</h3>
+                        <p>{{ invite.message }}</p>
+                        <button class="" type="submit">Accept</button>
+                        <button class="" type="submit">Decline</button>
+                    </div>
+                {% endfor %}
             
             </div>
         </div>

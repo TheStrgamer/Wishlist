@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from .models import Wishlist, Category, Item, WishlistGroup, GroupInvite
 
-from .forms import UserRegisterForm, WishlistForm, ItemForm, WishlistGroupForm
+from .forms import UserRegisterForm, WishlistForm, ItemForm, WishlistGroupForm, GroupInviteForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -199,7 +199,8 @@ def groups_view(request):
     groups = WishlistGroup.objects.all()
     your_groups = [group for group in groups if request.user in group.members.all() and group.owner != request.user]
     owned_groups = [group for group in groups if group.owner == request.user]
-    context = {'group_list': your_groups, 'owned_groups': owned_groups}
+    invites = GroupInvite.objects.filter(user=request.user)
+    context = {'group_list': your_groups, 'owned_groups': owned_groups, 'invites':invites}
     return render(request, 'groups/groups.html', context)
 
 @login_required
@@ -271,15 +272,22 @@ def add_user_to_group_view(request, group_id):
         return redirect(url) 
     if request.method== "POST":
         if User.objects.filter(username=request.POST.get('username')).exists() == False:
-            form = WishlistGroupForm(owner=request.user, instance=group)
+            form = GroupInviteForm(group=group)
             context = {'form': form, 'group':group, 'message':"No user with that username exists"}
             return render(request, 'add_user.html', context)
+        
         user = User.objects.get(username=request.POST.get('username'))
         if user in group.members.all():
             return redirect('group_detail', group_id)
-        group.members.add(user)
-        group.save()
+        message = request.POST.get('message')
+        if GroupInvite.objects.filter(group=group, user=user).exists():
+            return redirect('group_detail', group_id)
+
+        GroupInviteForm(group=group, user=user, message=message).save()
+        # group.members.add(user)
+        # group.save()
         return redirect('group_detail', group_id) 
+    
     else:
         form = WishlistGroupForm(owner=request.user, instance=group)
     context = {'form': form, 'group':group, 'message':""}

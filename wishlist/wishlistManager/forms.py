@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import WishlistGroup, Wishlist, Category, Item
+from .models import WishlistGroup, Wishlist, Category, Item, GroupInvite
 
 
 class UserRegisterForm(forms.ModelForm):
@@ -116,5 +116,32 @@ class WishlistGroupForm(forms.Form):
             self.instance = WishlistGroup.objects.create(name=self.cleaned_data['name'], description=self.cleaned_data['description'], image = self.cleaned_data['image'], owner=self.owner)
         self.instance.save()
         return self.instance
+    
+class GroupInviteForm(forms.Form):
+    message = forms.CharField(required=False, label='Message')
+
+    
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        self.group = kwargs.pop('group', None)
+        self.message = kwargs.pop('message', None)
+        super(GroupInviteForm, self).__init__(*args, **kwargs)
+        if self.message:
+            self.fields['message'].initial = self.message
+        
+    def save(self):
+        if self.group:
+            group = self.group
+        else:
+            group = self.cleaned_data['group']
+        if self.message:
+            message = self.message
+        else:
+            message = self.cleaned_data['message']
+        try:
+            user = self.user
+        except User.DoesNotExist:
+            return None
+        return GroupInvite.objects.create(group=group, user=user, message=message)
 
 

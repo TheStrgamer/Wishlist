@@ -22,6 +22,9 @@
                     {% csrf_token %}
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username">
+                    <br>
+                    <label for="message">Message:</label>
+                    <input type="text" id="message" name="message">
                     <button type="submit">Invite user</button>
                     <p>{{ message }}</p>
                 </form>
