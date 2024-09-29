@@ -16,6 +16,12 @@ class WishlistGroup(models.Model):
             return True
         return False
 
+    def can_edit(self, user):
+        return self.owner == user
+    
+    def can_delete(self, user):
+        return self.owner == user
+
 
 class Wishlist(models.Model):
     name = models.CharField(max_length=100)

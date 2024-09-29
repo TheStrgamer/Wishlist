@@ -230,6 +230,55 @@ def create_group_view(request):
     context = {'form': form}
     return render(request, 'groups/create_group.html', context)
 
+@login_required
+def edit_group_view(request, group_id):
+    group=get_object_or_404(WishlistGroup, id=group_id)
+    if group.can_edit(request.user) == False:
+        url = reverse('group_detail', args=[group_id])
+        return redirect(url) 
+
+    if request.method== "POST":
+        form = WishlistGroupForm(request.POST, owner=request.user, instance=group)
+        if form.is_valid():
+            form.save()
+            url = reverse('group_detail', args=[group_id])
+            return redirect('groups') 
+        else:
+            print(form.errors)       
+    else: 
+        form = WishlistGroupForm(owner=request.user, instance=group)
+    context = {'form': form}
+    return render(request, 'groups/create_group.html', context)
+
+@login_required
+def delete_group_view(request, group_id):
+    group=get_object_or_404(WishlistGroup, id=group_id)
+    if group.can_delete(request.user) == False:
+        url = reverse('group_detail', args=[group_id])
+        return redirect(url) 
+    if request.method== "POST":
+        group.delete()
+        return redirect('groups') 
+    context = {'name': group.name, 'type': 'group', 'group':group}
+    return render(request, 'confirm_delete.html', context)
+
+
+@login_required
+def add_user_to_group_view(request, group_id):
+    group = get_object_or_404(WishlistGroup, id=group_id)
+    if group.owner != request.user:
+        url = reverse('group_detail', args=[group_id])
+        return redirect(url) 
+    if request.method== "POST":
+        user = User.objects.get(username=request.POST.get('username'))
+        group.members.add(user)
+        group.save()
+        return redirect('group_detail', group_id) 
+    else:
+        form = WishlistGroupForm(owner=request.user)
+    context = {'form': form}
+    return render(request, 'add_user.html', context)
+
 class ProtectedView(LoginRequiredMixin, View):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'

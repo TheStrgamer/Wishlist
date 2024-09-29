@@ -40,8 +40,10 @@ wishlist_url_patterns = [
 
 
 spesific_group_patterns = [
-    path("", views.group_detail, name="group_detail")
-
+    path("", views.group_detail, name="group_detail"),
+    path("edit", views.edit_group_view, name="edit_group"),
+    path("delete", views.delete_group_view, name="delete_group"),
+    path("add_user", views.add_user_to_group_view, name="add_user_to_group"),
 ]
 
 group_url_patterns = [

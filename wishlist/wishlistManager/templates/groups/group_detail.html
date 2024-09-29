@@ -16,6 +16,15 @@
 
         <h1>{{group.name}}</h1>
 
+        <form action="{% url 'edit_group' group.id %}" method = "get" class="edit_wishlist_button">
+            <button type="submit" class="edit_group_button">Edit</button>
+        </form> 
+        <form action="{% url 'delete_group' group.id %}" method="get" class="delete_wishlist_button">
+            {% csrf_token %}
+            <button type="submit" class="delete_wishlist_button" >Delete</button>
+        </form>
+        
+
 
         <br>
         <h3>Members:</h3>
