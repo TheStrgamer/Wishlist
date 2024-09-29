@@ -32,7 +32,8 @@ class WishlistForm(forms.Form):
         self.user = kwargs.pop('user')
         self.instance = kwargs.pop('instance', None)
         super(WishlistForm, self).__init__(*args, **kwargs)
-        self.fields['groups_with_permission'].queryset = WishlistGroup.objects.filter(members=self.user)
+        self.fields['groups_with_permission'].queryset = WishlistGroup.objects.filter(owner=self.user) | WishlistGroup.objects.filter(members=self.user)
+        self.fields['groups_with_permission'].queryset = self.fields['groups_with_permission'].queryset.distinct()
         self.fields['users_with_permission'].queryset = User.objects.exclude(pk=self.user.pk)
 
         if self.instance:

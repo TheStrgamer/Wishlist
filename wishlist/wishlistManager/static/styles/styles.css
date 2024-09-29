@@ -440,6 +440,11 @@ input[type="password"], textarea {
     background-color: #b4b1b1;
     border-radius: 5px;
 }
+.invite button {
+    width: 64px;
+    height: 30px;
+    padding: 0px;
+}
 
 .titlebox {
     display: flex;
