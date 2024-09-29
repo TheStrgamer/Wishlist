@@ -284,8 +284,7 @@ def add_user_to_group_view(request, group_id):
             return redirect('group_detail', group_id)
 
         GroupInviteForm(group=group, user=user, message=message).save()
-        # group.members.add(user)
-        # group.save()
+
         return redirect('group_detail', group_id) 
     
     else:

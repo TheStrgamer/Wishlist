@@ -432,7 +432,13 @@ input[type="password"], textarea {
 }
 
 .invites {
-    flex:1
+    flex:1;
+    background-color: #c0bcbc;
+    border-radius: 5px;
+}
+.invite {
+    background-color: #b4b1b1;
+    border-radius: 5px;
 }
 
 .titlebox {
@@ -460,3 +466,4 @@ input[type="password"], textarea {
     padding: 0px;
     margin-left: 0%;
 }
+
