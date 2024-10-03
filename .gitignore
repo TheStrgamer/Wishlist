@@ -1,1 +1,7 @@
 .env
+*.sqlite3
+wishlist/db.sqlite3
+*.pyc
+
+wishlist/wishlistManager/__pycache__/
+wishlist/wishlistManager/__pycache__/forms.cpython-311.pyc
